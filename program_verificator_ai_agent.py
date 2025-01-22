@@ -10,7 +10,7 @@ from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 import shutil
 import os
 
-key = st.secrets['OPENAI_APIKEY']
+key = st.secrets['general']['OPENAI_APIKEY']
 
 st.set_page_config(page_title = 'AI Software Verificator', layout = 'wide')
 
