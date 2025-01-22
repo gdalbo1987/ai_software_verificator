@@ -9,6 +9,6 @@ tokenizers==0.15.2
 langchain-text-splitters==0.2.2
 langcodes==3.4.0
 langsmith==0.1.99
-pydantic==2.6.4
+pydantic==3.12.4
 
 
