@@ -10,12 +10,7 @@ from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 import shutil
 import os
 
-os.environ.pop("HTTP_PROXY", None)
-os.environ.pop("HTTPS_PROXY", None)
-
-key = st.secrets["api_key"]
-
-os.environ['OPENAI_API_KEY'] = key
+key = str(st.secrets["api_key"])
 
 st.set_page_config(page_title = 'AI Software Verificator', layout = 'wide')
 
@@ -65,7 +60,7 @@ if uploaded_files is not None:
         if all_documents is not None:
             st.sidebar.success('Documents loaded successfully!')
         
-        embeddings = OpenAIEmbeddings()
+        embeddings = OpenAIEmbeddings(openai_api_key = key)
 
         text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,  # Tamanho das partes
@@ -111,7 +106,7 @@ if uploaded_files is not None:
 
         standard_retriever = std_vectorstore.as_retriever() 
 
-        model = ChatOpenAI(model_name = 'gpt-4o-mini', temperature = 0)
+        model = ChatOpenAI(model_name = 'gpt-4o-mini', temperature = 0, openai_api_key = key)
 
         languages = langs
 
