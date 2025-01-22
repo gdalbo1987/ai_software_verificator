@@ -16,7 +16,7 @@ st.set_page_config(page_title = 'AI Software Verificator', layout = 'wide')
 
 st.image('Coester.jpg', width= 200)
 st.title('AeroGRU Software Verificator AI Agent')
-st.write('AI Agent buitl using as reference the Standard EN 50128 - Railway applications — Communication, signalling and processing systems — Software for railway control and protection systems')
+st.write('AI Agent built using as reference the Standard EN 50128 - Railway applications — Communication, signalling and processing systems — Software for railway control and protection systems')
 st.write('Version 0.2')
 st.divider()
 
