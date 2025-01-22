@@ -10,6 +10,9 @@ from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 import shutil
 import os
 
+os.environ.pop("HTTP_PROXY", None)
+os.environ.pop("HTTPS_PROXY", None)
+
 key = st.secrets["api_key"]
 
 os.environ['OPENAI_API_KEY'] = key
