@@ -12,6 +12,8 @@ import os
 
 key = st.secrets.get("api_key")
 
+os.environ['OPENAI_APIKE'] = key
+
 st.set_page_config(page_title = 'AI Software Verificator', layout = 'wide')
 
 st.image('Coester.jpg', width= 200)
@@ -60,7 +62,7 @@ if uploaded_files is not None:
         if all_documents is not None:
             st.sidebar.success('Documents loaded successfully!')
         
-        embeddings = OpenAIEmbeddings(openai_api_key=key)
+        embeddings = OpenAIEmbeddings()
 
         text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,  # Tamanho das partes
@@ -106,7 +108,7 @@ if uploaded_files is not None:
 
         standard_retriever = std_vectorstore.as_retriever() 
 
-        model = ChatOpenAI(model_name = 'gpt-4o-mini', temperature = 0, api_key = key)
+        model = ChatOpenAI(model_name = 'gpt-4o-mini', temperature = 0)
 
         languages = langs
 
