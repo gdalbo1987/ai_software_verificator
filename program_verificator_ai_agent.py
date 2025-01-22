@@ -10,7 +10,7 @@ from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 import shutil
 import os
 
-key = st.secrets.get("api_key")
+key = st.secrets["api_key"]
 
 os.environ['OPENAI_APIKE'] = key
 
