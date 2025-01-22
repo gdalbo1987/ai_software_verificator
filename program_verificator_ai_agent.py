@@ -12,7 +12,7 @@ import os
 
 key = st.secrets["api_key"]
 
-os.environ['OPENAI_APIKEY'] = key
+os.environ['OPENAI_API_KEY'] = key
 
 st.set_page_config(page_title = 'AI Software Verificator', layout = 'wide')
 
