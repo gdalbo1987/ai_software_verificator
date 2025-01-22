@@ -10,7 +10,7 @@ from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 import shutil
 import os
 
-key = str(st.secrets["api_key"])
+key = st.secrets["api_key"]
 
 st.set_page_config(page_title = 'AI Software Verificator', layout = 'wide')
 
