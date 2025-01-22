@@ -10,5 +10,6 @@ langchain-text-splitters
 langcodes
 langsmith
 pydantic
+faiss-cpu
 
 
