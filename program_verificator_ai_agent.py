@@ -10,7 +10,9 @@ from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 import shutil
 import os
 
-key = st.secrets['general']['OPENAI_APIKEY']
+key = st.secrets["openai"]["api_key"]
+
+st.write(key)
 
 st.set_page_config(page_title = 'AI Software Verificator', layout = 'wide')
 
