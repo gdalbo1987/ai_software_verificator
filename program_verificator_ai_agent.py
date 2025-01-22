@@ -12,8 +12,6 @@ import os
 
 key = st.secrets["openai"]["api_key"]
 
-st.write(key)
-
 st.set_page_config(page_title = 'AI Software Verificator', layout = 'wide')
 
 st.image('Coester.jpg', width= 200)
