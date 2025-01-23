@@ -17,7 +17,7 @@ st.set_page_config(page_title = 'AI Software Verificator', layout = 'wide')
 st.image('Coester.jpg', width= 200)
 st.title('AeroGRU Software Verificator AI Agent')
 st.write('AI Agent built using as reference the Standard EN 50128 - Railway applications — Communication, signalling and processing systems — Software for railway control and protection systems')
-st.write('Version 0.2')
+st.write('Version 0.3')
 st.divider()
 
 st.sidebar.title('Data entry:')
@@ -70,32 +70,33 @@ if uploaded_files is not None:
         
         vectorstore_dir = 'saved_vectorstores'
 
-        aux_path = os.path.join(vectorstore_dir, 'aux_vectorstore')
-        std_path = os.path.join(vectorstore_dir, 'std_vectorstore')
+        aux_path = os.path.join(vectorstore_dir, 'aux_vectorstore')        
 
-        if os.path.exists(aux_path) and os.path.exists(std_path):
+        if os.path.exists(aux_path):
             # Carregar vectorstores existentes
             aux_vectorstore = FAISS.load_local(aux_path, embeddings, allow_dangerous_deserialization = True)
-            std_vectorstore = FAISS.load_local(std_path, embeddings, allow_dangerous_deserialization = True)
+            
         else:
             # Criar pasta para salvar as vectorstores
             os.makedirs(vectorstore_dir, exist_ok=True)
             
-            loader1 = PyPDFLoader('base_docs/dissertation.pdf')
-            reference_doc = loader1.load()
+            folder_path = 'base_docs'
 
-            loader2 = PyPDFLoader('base_docs/cenelec.pdf')
-            standard_doc = loader2.load()
+            pdf_files = [file for file in os.listdir(folder_path) if file.endswith('.pdf')]
 
-            base = text_splitter.split_documents(reference_doc)
-            standard = text_splitter.split_documents(standard_doc)
-
+            base_documents = []
+            for pdf_file in pdf_files:
+                pdf_path = os.path.join(folder_path, pdf_file)  # Constrói o caminho completo
+                loader1 = PyPDFLoader(pdf_path)
+                base_docs = loader1.load()
+                base_documents.extend(base_docs)
+            
+            base = text_splitter.split_documents(base_documents)
+            
             aux_vectorstore = FAISS.from_documents(base, embeddings)
-            std_vectorstore = FAISS.from_documents(standard, embeddings)
-
+            
             aux_vectorstore.save_local(aux_path)
-            std_vectorstore.save_local(std_path)
-        
+                    
         texts = text_splitter.split_documents(all_documents)
 
         vectorstore = FAISS.from_documents(texts, embeddings)
@@ -103,9 +104,7 @@ if uploaded_files is not None:
         retriever = vectorstore.as_retriever()
 
         base_retriever = aux_vectorstore.as_retriever()
-
-        standard_retriever = std_vectorstore.as_retriever() 
-
+        
         model = ChatOpenAI(model_name = 'gpt-4o-mini', temperature = 0, openai_api_key = key)
 
         languages = langs
@@ -129,7 +128,7 @@ if uploaded_files is not None:
         Based only on the {languages} codes provided and referred requirements, describe:
 
         1. Are all requirements met by the program?
-        2. Explain how the requirements are met, detailing variables, methods, logic, inputs, outputs, contacts, coils, etc.
+        2. Explain how the requirements are met, detailing all variables, all methods, all logics, all inputs, all outputs, all contacts, all coils, all memories, etc.
         3. If any requirement is not met, clearly comment on what is not fulfilled and explain why it is not met.
         4. Suggest how unmet requirements can be fulfilled, providing detailed code examples if necessary. However, do not propose changes that conflict with safety principles.
 
@@ -137,9 +136,7 @@ if uploaded_files is not None:
 
         Requirements: {{requirements}}
 
-        Reference document: {{base}}
-
-        Standard: {{standard}}
+        Reference document: {{base}}        
         """
 
         prompt = ChatPromptTemplate.from_template(prompt_text)
@@ -148,8 +145,7 @@ if uploaded_files is not None:
         setup_and_retrieval = RunnableParallel(
         {'requirements': RunnablePassthrough(),
         'code': retriever,
-        'base': base_retriever,
-        'standard': standard_retriever}
+        'base': base_retriever}
         )
 
         chain = setup_and_retrieval | prompt | model | output_parser
