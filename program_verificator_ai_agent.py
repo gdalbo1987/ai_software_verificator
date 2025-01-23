@@ -106,7 +106,7 @@ if uploaded_files is not None:
 
         standard_retriever = std_vectorstore.as_retriever() 
 
-        model = ChatOpenAI(model_name = 'gpt-4o-mini', temperature = 0, openai_api_key = key)
+        model = ChatOpenAI(model_name = 'ft:gpt-4o-mini-2024-07-18:personal:tester:AstQ1LAX', temperature = 0, openai_api_key = key)
 
         languages = langs
 
