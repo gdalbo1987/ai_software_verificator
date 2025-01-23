@@ -120,7 +120,7 @@ if uploaded_files is not None:
 
         **Guidelines for Analysis**:
         - **Safety Priority**: Under no circumstances should you suggest modifications or enhancements that violate established safety principles, even if a requirement is found to be unmet.
-        - **Thoroughness**: Analyze the program step-by-step to ensure a comprehensive understanding of its logic, structure, and functionality. Consider all the names of inputs and outputs added of respective comments to enhance your interpretation.
+        - **Thoroughness**: Analyze the program step-by-step to ensure a comprehensive understanding of its logic, structure, and functionality. Consider all the names of inputs, outputs, auxiliares, Inout, Temp, Return, Static, Network Names, Constants and comments to enhance your interpretation.
         - **Clarity**: If any part of the code or requirements is unclear or incomplete, specify what additional information is needed.
 
         **Verification Tasks**:
