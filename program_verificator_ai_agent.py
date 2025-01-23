@@ -119,6 +119,7 @@ if uploaded_files is not None:
         Important: 
         - Under no circumstances should you suggest examples, modifications, enhancements, or improvements that violate safety principles, even if a requirement is found to be unmet.
         - Always prioritize the integrity and safety of the system. If a requirement cannot be fulfilled without violating safety principles, explain why without suggesting unsafe modifications.
+        - Always check the logic step-by-step to achieve a full understanting of program.
         
 
         Examples of actions that violate safety principles:
